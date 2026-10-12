@@ -6,7 +6,7 @@
 Options -Indexes
 
 # Deny direct access to sensitive files
-<FilesMatch "(config\.php|config\.sample\.php|database\.sql|Connection\.php|router\.php)">
+<FilesMatch "(config\.php|config\.sample\.php|database\.sql|seed\.sql|Connection\.php|router\.php)">
     # Apache 2.4
     Require all denied
     # Apache 2.2 (only when the legacy module is available)
@@ -28,3 +28,21 @@ Options -Indexes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>
+
+# Basic security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# --------------------------------------------------------------------------
+#  Force HTTPS
+#  Uncomment this block once you have installed a free SSL certificate
+#  (InfinityFree -> Control Panel -> Free SSL Certificates).
+# --------------------------------------------------------------------------
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

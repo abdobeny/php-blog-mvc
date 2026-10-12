@@ -58,6 +58,7 @@ comments, users).
 ├── config.php                 # Your settings (git-ignored)
 ├── database.sql               # Database schema
 ├── seed.sql                   # Optional demo data
+├── DEPLOY.md                  # Free-hosting deployment guide
 ├── .htaccess                  # Apache rewrite + security rules
 ├── assets/css/style.css       # Design system (public + admin)
 └── app/
@@ -128,6 +129,9 @@ Otherwise, create an account on the **Register** page.
 ---
 
 ## Deployment (free hosting)
+
+> **Step-by-step guide: [DEPLOY.md](DEPLOY.md)** — a complete walkthrough for
+> deploying to InfinityFree (FTP, MySQL import, config, free HTTPS).
 
 This is a classic Apache + MySQL app, so plain shared hosting works without any
 changes. Free options that support PHP + MySQL:
