@@ -9,6 +9,34 @@ comments, users).
 ![MySQL](https://img.shields.io/badge/MySQL-8-4479a1)
 ![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+[![PHP](https://github.com/abdobeny/php-blog-mvc/actions/workflows/php.yml/badge.svg)](https://github.com/abdobeny/php-blog-mvc/actions/workflows/php.yml)
+
+> **Live demo:** https://php-blog-mvc.infinityfreeapp.com
+> &nbsp;·&nbsp; demo accounts `admin / admin123` and `user / user123`
+
+---
+
+## Screenshots
+
+**Public site**
+
+| Home | Single post |
+| --- | --- |
+| ![Home](docs/screenshots/01-home.png) | ![Single post](docs/screenshots/02-single-post.png) |
+
+| Search | Login | Register |
+| --- | --- | --- |
+| ![Search](docs/screenshots/03-search.png) | ![Login](docs/screenshots/04-login.png) | ![Register](docs/screenshots/05-register.png) |
+
+**Admin area**
+
+| Dashboard | Manage articles |
+| --- | --- |
+| ![Admin dashboard](docs/screenshots/06-admin-dashboard.png) | ![Manage articles](docs/screenshots/07-admin-articles.png) |
+
+| Manage users | Manage categories |
+| --- | --- |
+| ![Manage users](docs/screenshots/08-admin-users.png) | ![Manage categories](docs/screenshots/09-admin-categories.png) |
 
 ---
 
@@ -59,6 +87,7 @@ comments, users).
 ├── database.sql               # Database schema
 ├── seed.sql                   # Optional demo data
 ├── DEPLOY.md                  # Free-hosting deployment guide
+├── docs/screenshots/          # Screenshots used in this README
 ├── .htaccess                  # Apache rewrite + security rules
 ├── assets/css/style.css       # Design system (public + admin)
 └── app/
@@ -97,7 +126,8 @@ cp config.sample.php config.php
 ```
 
 Edit `config.php` (or set the environment variables `DB_HOST`, `DB_NAME`,
-`DB_USER`, `DB_PASS`, `APP_DEBUG`).
+`DB_USER`, `DB_PASS`, `APP_DEBUG`). It auto-detects the environment: `localhost`
+uses the local block, your live domain uses the production block.
 
 ### 3. Run
 

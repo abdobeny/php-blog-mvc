@@ -1,0 +1,40 @@
+name: PHP
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint PHP & check schema
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: pdo_mysql
+          coverage: none
+
+      - name: Lint every PHP file
+        run: |
+          set -euo pipefail
+          find . -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Configuration template loads
+        run: php -r 'require "config.sample.php"; echo "DB_HOST=" . DB_HOST . "\n";'
+
+      - name: Database schema is present and non-empty
+        run: |
+          set -euo pipefail
+          test -s database.sql
+          grep -qi 'CREATE TABLE users' database.sql
+          grep -qi 'CREATE TABLE articles' database.sql
+          echo "schema looks good"

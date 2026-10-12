@@ -16,9 +16,20 @@ Options -Indexes
     </IfModule>
 </FilesMatch>
 
-# Pretty URLs -> front controller
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # ----------------------------------------------------------------------
+    #  Force HTTPS
+    #  The host terminates TLS at a reverse proxy, so we must also check the
+    #  forwarded-protocol headers. The plain "%{HTTPS} off" check on its own
+    #  causes an infinite redirect loop. (Rule from the InfinityFree docs.)
+    #  Comment these three conditions out if you ever host without SSL.
+    # ----------------------------------------------------------------------
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:CF-Visitor} !{"scheme":"https"}
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Never expose the git repository
     RewriteRule ^\.git(/.*)?$ - [F,L]
@@ -35,14 +46,3 @@ Options -Indexes
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
-
-# --------------------------------------------------------------------------
-#  Force HTTPS
-#  Uncomment this block once you have installed a free SSL certificate
-#  (InfinityFree -> Control Panel -> Free SSL Certificates).
-# --------------------------------------------------------------------------
-# <IfModule mod_rewrite.c>
-#     RewriteEngine On
-#     RewriteCond %{HTTPS} off
-#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# </IfModule>

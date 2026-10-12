@@ -61,24 +61,27 @@ SSH). Total time: about 20–30 minutes.
 
 ## Step 4 — Point the app at the database
 
-Open `config.php` and set the four values from Step 1/2. On InfinityFree it
-should look exactly like this:
+`config.php` (git-ignored) **auto-detects** where it runs: on `localhost` it uses
+the local database, and on your live domain it uses the production values.
+
+Open `config.php` and put your InfinityFree details in the **production** block
+(the `else` branch):
 
 ```php
-<?php
-// InfinityFree database settings (values from the Control Panel)
-define('DB_HOST', 'sqlXXX.infinityfree.com');   // MySQL host, NOT localhost
-define('DB_NAME', 'if0_XXXXXXXX_blog');         // full database name
-define('DB_USER', 'if0_XXXXXXXX');              // account username
-define('DB_PASS', 'your-database-password');    // as set in the panel
-
-// Keep errors off the screen in production
-define('APP_DEBUG', false);
+} else {
+    // ---------- Production (InfinityFree) ----------
+    define('DB_HOST', env_or('DB_HOST', 'sqlXXX.infinityfree.com'));   // MySQL host, NOT localhost
+    define('DB_NAME', env_or('DB_NAME', 'if0_XXXXXXXX_blog'));         // full database name
+    define('DB_USER', env_or('DB_USER', 'if0_XXXXXXXX'));              // account username
+    define('DB_PASS', env_or('DB_PASS', 'your-database-password'));    // as set in the panel
+}
 ```
 
-> `config.php` is git-ignored, so your real credentials are never pushed to
-> GitHub. Keep your local `config.php` for development and use a separate copy
-> with these values for the server.
+Set `APP_DEBUG` to `false` so errors are logged, not shown.
+
+> Because the same file works in both places, you can safely upload it and you'll
+> never accidentally point production at your local database. `config.php` is
+> git-ignored, so your credentials are never pushed to GitHub.
 
 ---
 
@@ -99,7 +102,7 @@ htdocs/
 ├── .htaccess              ← required (clean URLs + security)
 ├── index.php              ← front controller
 ├── router.php             ← optional (only used by php -S locally)
-├── config.php             ← with the InfinityFree values from Step 4
+├── config.php             ← auto-detects local vs production (safe to upload)
 ├── app/                   ← entire folder
 │   ├── controllers/
 │   ├── models/
@@ -149,13 +152,17 @@ Check these:
 
 ---
 
-## Step 8 — (Optional) Free HTTPS
+## Step 8 — HTTPS
 
-1. Control Panel → **Free SSL Certificates** and follow the wizard (or put the
-   site behind Cloudflare's free plan).
-2. Once the certificate is active, open `.htaccess` and **uncomment the
-   "Force HTTPS" block** at the bottom of the file to redirect all traffic to
-   `https://`. Test with `https://` before relying on it.
+This project's `.htaccess` **already forces HTTPS**, using the rule recommended
+by InfinityFree (it checks the forwarded-protocol headers so it does *not* loop
+behind their reverse proxy).
+
+1. Make sure a certificate is active: Control Panel → **Free SSL Certificates**
+   (or put the site behind Cloudflare's free plan).
+2. Visit `http://your-subdomain` — it should now redirect to `https://`.
+3. If you ever get `ERR_TOO_MANY_REDIRECTS`, comment out the three
+   `RewriteCond` lines in the **Force HTTPS** block and check your SSL setup.
 
 ---
 
@@ -170,6 +177,7 @@ Check these:
 | **Blank white page** | Temporarily set `APP_DEBUG` to `true` in `config.php` to see the error, then set it back to `false`. |
 | **CSS looks unstyled** | `assets/css/style.css` wasn't uploaded, or was uploaded to the wrong folder. |
 | **Login "does nothing"** | Cookies are blocked by the browser, or you're flipping between `http` and `https`. Stay on one scheme. |
+| **ERR_TOO_MANY_REDIRECTS** | The HTTPS redirect is looping. Comment out the three `RewriteCond` lines in the *Force HTTPS* block. |
 
 ---
 
