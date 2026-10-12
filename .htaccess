@@ -1,0 +1,30 @@
+# ==========================================================================
+#  PHP Blog — Apache configuration
+# ==========================================================================
+
+# No directory listings
+Options -Indexes
+
+# Deny direct access to sensitive files
+<FilesMatch "(config\.php|config\.sample\.php|database\.sql|Connection\.php|router\.php)">
+    # Apache 2.4
+    Require all denied
+    # Apache 2.2 (only when the legacy module is available)
+    <IfModule mod_access_compat.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Pretty URLs -> front controller
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Never expose the git repository
+    RewriteRule ^\.git(/.*)?$ - [F,L]
+
+    # Serve real files/directories, route everything else through index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

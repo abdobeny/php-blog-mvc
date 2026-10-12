@@ -1,0 +1,541 @@
+/* ==========================================================================
+   PHP Blog — design system
+   Public theme : diagonal gradient (indigo -> magenta), white navbar,
+                  pink #e91e63 headings, slate #4a5568 buttons, stacked cards.
+   Admin theme  : same gradient, glass sidebar, white panels.
+   No external CSS framework is required.
+   ========================================================================== */
+
+:root {
+  --pink:      #e91e63;
+  --pink-dark: #c2185b;
+  --slate:     #4a5568;
+  --slate-dark:#3d475a;
+  --ink:       #333333;
+  --muted:     #666666;
+  --card-bg:   #ffffff;
+  --gradient:  linear-gradient(135deg, #6a5acd 0%, #8a2be2 100%);
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--gradient) fixed;
+  background-attachment: fixed;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+.link-pink { color: var(--pink); font-weight: 600; }
+
+/* =========================================================================
+   Public navbar — solid white, pink brand, dark-grey links
+   ========================================================================= */
+.site-nav {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .10);
+  position: relative;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+.site-nav .brand {
+  color: var(--pink);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: .3px;
+}
+.site-nav .brand:hover { color: var(--pink-dark); }
+.site-nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.site-nav .nav-right > a {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.site-nav .nav-right > a:hover { color: var(--pink); }
+.site-nav .who { color: var(--pink); font-weight: 600; }
+.site-nav .search { display: flex; gap: .4rem; }
+.site-nav .search input {
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  padding: .45rem .7rem;
+  font-size: .9rem;
+  color: var(--ink);
+  outline: none;
+}
+.site-nav .search input:focus { border-color: var(--pink); }
+.site-nav .search button {
+  border: none;
+  background: var(--slate);
+  color: #fff;
+  border-radius: 6px;
+  padding: .45rem .9rem;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.site-nav .search button:hover { background: var(--slate-dark); }
+
+/* =========================================================================
+   Hero
+   ========================================================================= */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 3rem 2rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.hero h1 {
+  margin: 0;
+  color: var(--pink);
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .18);
+}
+
+.btn-slate {
+  display: inline-block;
+  background: var(--slate);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: .75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-slate:hover { background: var(--slate-dark); color: #fff; }
+
+.hero-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, .3);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* =========================================================================
+   Posts
+   ========================================================================= */
+.posts {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.post {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+  color: var(--ink);
+}
+.post h2, .post h3 {
+  margin: 0 0 1rem;
+  color: var(--pink);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.post h2 a { color: var(--pink); }
+.post h2 a:hover { color: var(--pink-dark); }
+.post .meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 1.5rem;
+}
+.post .meta a { color: var(--pink); }
+.post .excerpt {
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+.btn-readmore {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--slate);
+  color: var(--slate);
+  border-radius: 6px;
+  padding: .5rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn-readmore:hover { background: var(--slate); color: #fff; }
+
+.comment-form textarea {
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  padding: .75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.comment-form textarea:focus { border-color: var(--pink); }
+
+/* =========================================================================
+   Pagination
+   ========================================================================= */
+.pagination-custom {
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 2.5rem;
+  flex-wrap: wrap;
+}
+.pagination-custom a, .pagination-custom span {
+  background: rgba(255, 255, 255, .9);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: .5rem .85rem;
+  font-weight: 600;
+}
+.pagination-custom a:hover { background: #fff; color: var(--pink); }
+.pagination-custom .active { background: var(--pink); color: #fff; }
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+.site-footer {
+  background: #ffffff;
+  color: var(--muted);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+.site-footer p { margin: 0; }
+
+/* =========================================================================
+   Auth pages (login / register)
+   ========================================================================= */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+  color: var(--ink);
+}
+.auth-card h2 {
+  margin: 0 0 1.5rem;
+  color: var(--pink);
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+}
+.auth-card label { display: block; color: var(--muted); font-size: .9rem; margin-bottom: .35rem; }
+.auth-card input {
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  padding: .7rem .8rem;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 1.1rem;
+  outline: none;
+}
+.auth-card input:focus { border-color: var(--pink); }
+.auth-card .btn-slate { width: 100%; text-align: center; border-radius: 6px; }
+.auth-card .alt { text-align: center; margin: 1.2rem 0 0; color: var(--muted); font-size: .9rem; }
+.auth-card .alt a { color: var(--pink); font-weight: 600; }
+
+.alert-error {
+  background: #fde8ef;
+  color: var(--pink-dark);
+  border-radius: 9px;
+  padding: .8rem 1rem;
+  margin-bottom: 1.15rem;
+  font-size: .9rem;
+}
+.alert-error ul { margin: .3rem 0 0 1.1rem; padding: 0; }
+.alert-ok {
+  background: #e6f7ef;
+  color: #1c8a63;
+  border-radius: 9px;
+  padding: .8rem 1rem;
+  margin-bottom: 1.15rem;
+  font-size: .9rem;
+}
+
+/* =========================================================================
+   ADMIN LAYOUT — glass sidebar + white panels
+   ========================================================================= */
+.admin-shell { display: flex; align-items: stretch; min-height: 100vh; }
+
+.sidebar {
+  flex: 0 0 252px;
+  width: 252px;
+  background: rgba(24, 10, 50, .35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar-brand {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: .3px;
+  display: block;
+  margin-bottom: .3rem;
+}
+.sidebar-role {
+  color: rgba(255, 255, 255, .8);
+  font-size: .85rem;
+  margin: 0 0 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.sidebar-nav { display: flex; flex-direction: column; gap: .2rem; }
+.sidebar-nav a {
+  color: rgba(255, 255, 255, .87);
+  padding: .6rem .8rem;
+  border-radius: 9px;
+  font-weight: 500;
+  display: block;
+}
+.sidebar-nav a:hover { background: rgba(255, 255, 255, .14); color: #fff; }
+.sidebar-nav a.active {
+  background: #fff;
+  color: var(--pink);
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+}
+.sidebar-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, .16);
+}
+.sidebar-foot a {
+  color: rgba(255, 255, 255, .78);
+  font-size: .9rem;
+  padding: .45rem .8rem;
+  border-radius: 8px;
+}
+.sidebar-foot a:hover { background: rgba(255, 255, 255, .14); color: #fff; }
+
+.admin-main { flex: 1; padding: 2rem 2.25rem; min-width: 0; }
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.page-head h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.85rem;
+  font-weight: 800;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .2);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.15rem;
+  margin-bottom: 1.75rem;
+}
+.stat {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem 1.4rem 1.7rem;
+  box-shadow: 0 10px 30px rgba(30, 10, 60, .22);
+  color: var(--ink);
+  overflow: hidden;
+}
+.stat::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: var(--pink);
+}
+.stat .num { font-size: 2.2rem; font-weight: 800; color: var(--pink); line-height: 1; }
+.stat .label {
+  margin-top: .4rem;
+  color: var(--muted);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  font-weight: 700;
+}
+.stat .go { display: inline-block; margin-top: 1rem; font-weight: 600; color: var(--slate); }
+.stat .go:hover { color: var(--pink); }
+
+.panel {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(30, 10, 60, .22);
+  color: var(--ink);
+  margin-bottom: 1.75rem;
+}
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.panel-head h2 { margin: 0; font-size: 1.2rem; font-weight: 800; color: var(--pink); }
+.form-panel { max-width: 840px; }
+.form-narrow { max-width: 520px; }
+
+table.data { width: 100%; border-collapse: collapse; }
+table.data th {
+  text-align: left;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--muted);
+  padding: .7rem .75rem;
+  border-bottom: 2px solid #f0edf6;
+  white-space: nowrap;
+}
+table.data td {
+  padding: .8rem .75rem;
+  border-bottom: 1px solid #f2f0f7;
+  vertical-align: middle;
+  color: var(--ink);
+}
+table.data tbody tr:last-child td { border-bottom: none; }
+table.data tbody tr:hover td { background: #faf8ff; }
+table.data td.right, table.data th.right { text-align: right; }
+table.data a { color: var(--pink); font-weight: 600; }
+.actions { white-space: nowrap; }
+.actions .btn { margin-left: .35rem; }
+form.inline { display: inline; }
+.muted { color: #aab; }
+
+.badge {
+  display: inline-block;
+  padding: .18rem .6rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.badge-admin { background: #fde8ef; color: var(--pink-dark); }
+.badge-user  { background: #eef1f6; color: var(--slate); }
+
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: .62rem 1.1rem;
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--slate); color: #fff; }
+.btn-primary:hover { background: var(--slate-dark); color: #fff; }
+.btn-danger { background: #e0507a; color: #fff; }
+.btn-danger:hover { background: #c8406a; color: #fff; }
+.btn-light { background: #eef1f6; color: var(--slate); }
+.btn-light:hover { background: #e2e7ef; color: var(--slate); }
+.btn-sm { padding: .38rem .7rem; font-size: .8rem; border-radius: 6px; }
+
+.form-group { margin-bottom: 1.15rem; }
+.form-group label { display: block; font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: .4rem; }
+.input, .textarea, .select {
+  width: 100%;
+  border: 1px solid #dcd7e6;
+  border-radius: 9px;
+  padding: .7rem .8rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+.textarea { line-height: 1.55; resize: vertical; }
+.input:focus, .textarea:focus, .select:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, .15);
+}
+.select-inline { width: auto; padding: .3rem .5rem; font-size: .85rem; display: inline-block; }
+.hint { display: block; margin-top: .35rem; color: var(--muted); font-size: .8rem; }
+.empty { text-align: center; color: var(--muted); padding: 2.2rem 1rem; margin: 0; }
+.empty a { color: var(--pink); font-weight: 600; }
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+@media (max-width: 860px) {
+  .admin-shell { flex-direction: column; }
+  .sidebar {
+    position: static;
+    height: auto;
+    width: auto;
+    flex: none;
+    border-radius: 0;
+  }
+  .sidebar-nav, .sidebar-foot { flex-direction: row; flex-wrap: wrap; }
+  .sidebar-foot { margin-top: .5rem; }
+  .admin-main { padding: 1.25rem; }
+}
+
+@media (max-width: 640px) {
+  .site-nav { padding: 1rem; }
+  .site-nav .nav-right { gap: 1rem; }
+  .hero { padding: 2rem 1.25rem 1rem; }
+  .hero h1 { font-size: 1.9rem; }
+  .posts { padding: 1.25rem; gap: 1.5rem; }
+  .post { padding: 1.5rem; }
+  .post h2, .post h3 { font-size: 1.45rem; }
+  .page-head h1 { font-size: 1.45rem; }
+}
